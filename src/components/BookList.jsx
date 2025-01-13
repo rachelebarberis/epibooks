@@ -5,9 +5,15 @@ import CommentArea from "./CommentArea";
 
 class BookList extends Component {
   state = {
+    searchQuery: "",
     selectedAsin: null,
   };
 
+  handleSearch = (e) => {
+    this.setState({
+      search: e.target.value,
+    });
+  };
   bookClick = (asin) => {
     this.setState({ selectedAsin: asin });
   };
@@ -21,8 +27,8 @@ class BookList extends Component {
                 <Form.Control
                   type="search"
                   placeholder="Cerca un libro"
-                  value={this.props.searchQuery}
-                  onChange={(e) => this.props.changeApp(e.target.value)}
+                  value={this.state.searchQuery}
+                  onChange={() => this.handleSearch()}
                 />
               </Form.Group>
             </Col>
@@ -32,7 +38,7 @@ class BookList extends Component {
               <Row className="g-2 mt-3">
                 {this.props.books
                   .filter((b) =>
-                    b.title.toLowerCase().includes(this.props.searchQuery)
+                    b.title.toLowerCase().includes(this.state.searchQuery)
                   )
                   .map((b) => (
                     <Col xs={12} md={4} key={b.asin}>

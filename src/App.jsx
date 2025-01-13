@@ -11,15 +11,6 @@ import fantasy from "./data/fantasy.json";
 import { Component } from "react";
 
 class App extends Component {
-  state = {
-    searchQuery: "",
-  };
-
-  changeApp = (newSelected) => {
-    this.setState({
-      searchQuery: newSelected,
-    });
-  };
   render() {
     return (
       <>
@@ -27,11 +18,7 @@ class App extends Component {
         <Container>
           <Welcome />
           {/* <AllTheBooks /> */}
-          <BookList
-            books={fantasy}
-            searchQuery={this.state.searchQuery}
-            changeApp={this.changeApp}
-          />
+          <BookList books={fantasy} />
         </Container>
         <MyFooter />
       </>

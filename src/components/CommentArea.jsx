@@ -9,8 +9,6 @@ class CommentArea extends Component {
     comments: [],
     isLoading: true,
     isError: false,
-
-    BookData: {},
   };
 
   componentDidUpdate(prevProps) {
@@ -21,18 +19,31 @@ class CommentArea extends Component {
   getBookData = async () => {
     try {
       const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/comments/" + this.props.asin
+        "https://striveschool-api.herokuapp.com/api/comments/" +
+          this.props.asin,
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzVhOWVmNTk3ZTI5ZjAwMTVjMmU2OWMiLCJpYXQiOjE3MzY3NzQ4NzksImV4cCI6MTczNzk4NDQ3OX0.4kD4PjijrCGJggPxjkThpqhDO33NvMQ7Zo4uzeA9M7s",
+          },
+        }
       );
       if (response.ok) {
         const data = await response.json();
         this.setState({
-          BookData: data.asin,
+          comments: data,
+          isLoading: false,
+          isError: false,
         });
       } else {
         throw new Error();
       }
     } catch (error) {
       console.log(error);
+      this.setState({
+        isLoading: false,
+        isError: true,
+      });
     }
   };
   componentDidMount = async () => {
@@ -42,7 +53,6 @@ class CommentArea extends Component {
           this.props.asin,
         {
           headers: {
-            "Content-type": "application/json",
             Authorization:
               "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzVhOWVmNTk3ZTI5ZjAwMTVjMmU2OWMiLCJpYXQiOjE3MzY3NzQ4NzksImV4cCI6MTczNzk4NDQ3OX0.4kD4PjijrCGJggPxjkThpqhDO33NvMQ7Zo4uzeA9M7s",
           },
