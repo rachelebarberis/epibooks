@@ -1,45 +1,46 @@
-import { Component } from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Component } from "react";
+import { Button, Form } from "react-bootstrap";
 
 class AddComment extends Component {
   state = {
     comment: {
-      comment: '',
+      comment: "",
       rate: 1,
       elementId: this.props.asin,
     },
-  }
+  };
 
   sendComment = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       let response = await fetch(
-        'https://striveschool-api.herokuapp.com/api/comments',
+        "https://striveschool-api.herokuapp.com/api/comments",
         {
-          method: 'POST',
+          method: "POST",
           body: JSON.stringify(this.state.comment),
           headers: {
-            'Content-type': 'application/json',
-            Authorization: 'Bearer inserisci-qui-il-tuo-token',
+            "Content-type": "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzVhOWVmNTk3ZTI5ZjAwMTVjMmU2OWMiLCJpYXQiOjE3MzY3NzQ4NzksImV4cCI6MTczNzk4NDQ3OX0.4kD4PjijrCGJggPxjkThpqhDO33NvMQ7Zo4uzeA9M7s",
           },
         }
-      )
+      );
       if (response.ok) {
-        alert('Recensione inviata!')
+        alert("Recensione inviata!");
         this.setState({
           comment: {
-            comment: '',
+            comment: "",
             rate: 1,
             elementId: this.props.asin,
           },
-        })
+        });
       } else {
-        throw new Error('Qualcosa è andato storto')
+        throw new Error("Qualcosa è andato storto");
       }
     } catch (error) {
-      alert(error)
+      alert(error);
     }
-  }
+  };
 
   render() {
     return (
@@ -87,8 +88,8 @@ class AddComment extends Component {
           </Button>
         </Form>
       </div>
-    )
+    );
   }
 }
 
-export default AddComment
+export default AddComment;
