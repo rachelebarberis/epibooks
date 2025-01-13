@@ -9,8 +9,32 @@ class CommentArea extends Component {
     comments: [],
     isLoading: true,
     isError: false,
+
+    BookData: {},
   };
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.asin !== this.props.asin) {
+      this.getBookData();
+    }
+  }
+  getBookData = async () => {
+    try {
+      const response = await fetch(
+        "https://striveschool-api.herokuapp.com/api/comments/" + this.props.asin
+      );
+      if (response.ok) {
+        const data = await response.json();
+        this.setState({
+          BookData: data.asin,
+        });
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   componentDidMount = async () => {
     try {
       let response = await fetch(
@@ -26,7 +50,8 @@ class CommentArea extends Component {
       );
       console.log(response);
       if (response.ok) {
-        let comments = await response.json();
+        const comments = await response.json();
+        console.log(comments);
         this.setState({ comments: comments, isLoading: false, isError: false });
       } else {
         this.setState({ isLoading: false, isError: true });

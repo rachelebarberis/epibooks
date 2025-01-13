@@ -5,25 +5,11 @@ import CommentArea from "./CommentArea";
 
 class BookList extends Component {
   state = {
-    BookData: {},
+    selectedAsin: null,
   };
 
-  getBookData = async () => {
-    try {
-      const response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/comments/" + this.props.asin
-      );
-      if (response.ok) {
-        const data = await response.json();
-        this.setState({
-          BookData: data.asin,
-        });
-      } else {
-        throw new Error();
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  bookClick = (asin) => {
+    this.setState({ selectedAsin: asin });
   };
   render() {
     return (
@@ -50,16 +36,13 @@ class BookList extends Component {
                   )
                   .map((b) => (
                     <Col xs={12} md={4} key={b.asin}>
-                      <SingleBook book={b} />
+                      <SingleBook book={b} onBookClick={this.bookClick} />
                     </Col>
                   ))}
               </Row>
             </Col>
             <Col md={6}>
-              <CommentArea
-                searchQuery={this.props.searchQuery}
-                BookData={this.state.BookData}
-              />
+              <CommentArea asin={this.state.selectedAsin} />
             </Col>
           </Row>
         </Container>
