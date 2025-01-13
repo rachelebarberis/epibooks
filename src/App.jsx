@@ -1,26 +1,42 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
-import './App.css'
-import MyNav from './components/MyNav'
-import MyFooter from './components/MyFooter'
-import Welcome from './components/Welcome'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import MyNav from "./components/MyNav";
+import MyFooter from "./components/MyFooter";
+import Welcome from "./components/Welcome";
 // import AllTheBooks from './components/AllTheBooks'
-import { Container } from 'react-bootstrap'
-import BookList from './components/BookList'
+import { Container } from "react-bootstrap";
+import BookList from "./components/BookList";
 
-import fantasy from './data/fantasy.json'
+import fantasy from "./data/fantasy.json";
+import { Component } from "react";
 
-function App() {
-  return (
-    <>
-      <MyNav />
-      <Container>
-        <Welcome />
-        {/* <AllTheBooks /> */}
-        <BookList books={fantasy} />
-      </Container>
-      <MyFooter />
-    </>
-  )
+class App extends Component {
+  state = {
+    searchQuery: "",
+  };
+
+  changeApp = (newSelected) => {
+    this.setState({
+      searchQuery: newSelected,
+    });
+  };
+  render() {
+    return (
+      <>
+        <MyNav />
+        <Container>
+          <Welcome />
+          {/* <AllTheBooks /> */}
+          <BookList
+            books={fantasy}
+            searchQuery={this.state.searchQuery}
+            changeApp={this.changeApp}
+          />
+        </Container>
+        <MyFooter />
+      </>
+    );
+  }
 }
 
-export default App
+export default App;

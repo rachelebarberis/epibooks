@@ -8,6 +8,7 @@ const SingleComment = ({ comment }) => {
         {
           method: "DELETE",
           headers: {
+            "Content-type": "application/json",
             Authorization:
               "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzVhOWVmNTk3ZTI5ZjAwMTVjMmU2OWMiLCJpYXQiOjE3MzY3NzQ4NzksImV4cCI6MTczNzk4NDQ3OX0.4kD4PjijrCGJggPxjkThpqhDO33NvMQ7Zo4uzeA9M7s",
           },
