@@ -1,17 +1,11 @@
 import { Component } from "react";
 import { Card } from "react-bootstrap";
-// import CommentArea from './CommentArea'
 
 class SingleBook extends Component {
-  // state = {
-  //   selected: false,
-  // }
-
   render() {
     return (
       <>
         <Card
-          // onClick={() => this.setState({ selected: !this.state.selected })}
           onClick={() => this.props.changeSelectedBook(this.props.book.asin)}
           style={{
             border:
